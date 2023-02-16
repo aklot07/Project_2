@@ -10,12 +10,12 @@ pipeline {
             }
         }
         
-        stage  ('test'){
+        stage  ('post'){
             steps {                
-               post{ 
+               
                     archiveArtifacts artifacts: 'backend/target/*.jar', followSymlinks: false
                     archiveArtifacts artifacts: 'frontend/target/*.jar', followSymlinks: false
-                }
+                
             }
         }
     }
