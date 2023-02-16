@@ -5,11 +5,19 @@ pipeline {
         stage ('build'){
             steps {
                 
-                    sh 'mvn clean install'
+                    sh 'mvn clean install -Dskiptests'
                 
             }
         }
-        
+        stage(test) {
+                steps {  sh 'mvn test' }
+                post {
+                    always {
+                        junit 'target/surefire-reports/*.xml'
+                        archiveArtifacts 'target/*.jar'
+                    }
+                }
+            }
         stage  ('post'){
             steps {                
                
